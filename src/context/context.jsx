@@ -18,6 +18,12 @@ const ContextProvider = ({ children }) => {
     }, 75 * index);
   };
 
+  // new chat functionality
+  const newChat = () => {
+    setLoading(false);
+    setShowResult(false);
+  };
+
   const onSent = async (prompt) => {
     setResultData("");
     setLoading(true);
@@ -30,8 +36,8 @@ const ContextProvider = ({ children }) => {
       setRecentPrompt(prompt);
     } else {
       setPrevPrompt((prev) => [...prev, input]);
-      setRecentPrompt(input)
-      response = await run(input)
+      setRecentPrompt(input);
+      response = await run(input);
     }
     // end - If we click on prev prompt it should display on main component
 
@@ -74,6 +80,7 @@ const ContextProvider = ({ children }) => {
     setResultData,
     input,
     setInput,
+    newChat
   };
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
