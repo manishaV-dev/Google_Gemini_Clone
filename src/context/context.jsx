@@ -11,13 +11,30 @@ const ContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState("");
 
+  const delayPara = (index, nextWord) => {};
+
   const onSent = async (prompt) => {
     setResultData("");
     setLoading(true);
     setShowResult(true);
-    setRecentPrompt(input)
+    setRecentPrompt(input);
     const response = await run(input);
-    setResultData(response);
+    // start-  when there is a star make it bold
+    let responseArray = response.split("*");
+    let newResponse;
+    for (let i = 0; i < responseArray.length; i++) {
+      if (i === 0 || i % 2 !== 1) {
+        newResponse += responseArray[i];
+      } else {
+        newResponse += "<b>" + responseArray[i] + "</b>";
+      }
+    }
+
+    // after removing star if single star available then replace it with new line
+    let newResponse2 = newResponse.split("*").join("</br>");
+
+    // end when there is a star make it bold
+    setResultData(newResponse2);
     setLoading(false);
     setInput("");
   };

@@ -144,9 +144,13 @@
   display: flex;
   align-items: start;
   gap: 20px;
-  text-align: justify;
+}
+
+.result-data p {
   color: #454545;
   font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
 }
 
 .loader {
@@ -167,10 +171,10 @@
 }
 
 @keyframes loader {
-    0%{
-        background-position: -800px 0px;
-    }
-    100%{
-        background-position: 800px 0px;
-    }
+  0% {
+    background-position: -800px 0px;
+  }
+  100% {
+    background-position: 800px 0px;
+  }
 }
