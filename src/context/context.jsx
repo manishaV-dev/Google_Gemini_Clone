@@ -27,7 +27,7 @@ const ContextProvider = ({ children }) => {
     const response = await run(input);
     // start-  when there is a star make it bold
     let responseArray = response.split("*");
-    let newResponse;
+    let newResponse = ""
     for (let i = 0; i < responseArray.length; i++) {
       if (i === 0 || i % 2 !== 1) {
         newResponse += responseArray[i];
