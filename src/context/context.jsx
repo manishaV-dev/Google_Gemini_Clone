@@ -22,12 +22,22 @@ const ContextProvider = ({ children }) => {
     setResultData("");
     setLoading(true);
     setShowResult(true);
-    setRecentPrompt(input);
-    setPrevPrompt((prev) => [...prev, input]);
-    const response = await run(input);
+
+    // start - If we click on prev prompt it should display on main component
+    let response;
+    if (prompt !== undefined) {
+      response = await run(prompt);
+      setRecentPrompt(prompt);
+    } else {
+      setPrevPrompt((prev) => [...prev, input]);
+      setRecentPrompt(input)
+      response = await run(input)
+    }
+    // end - If we click on prev prompt it should display on main component
+
     // start-  when there is a star make it bold
     let responseArray = response.split("*");
-    let newResponse = ""
+    let newResponse = "";
     for (let i = 0; i < responseArray.length; i++) {
       if (i === 0 || i % 2 !== 1) {
         newResponse += responseArray[i];
