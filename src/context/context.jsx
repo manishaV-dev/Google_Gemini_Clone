@@ -11,13 +11,19 @@ const ContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState("");
 
-  const delayPara = (index, nextWord) => {};
+  // add typing effect
+  const delayPara = (index, nextWord) => {
+    setTimeout(() => {
+      setResultData((prev) => prev + nextWord);
+    }, 75 * index);
+  };
 
   const onSent = async (prompt) => {
     setResultData("");
     setLoading(true);
     setShowResult(true);
     setRecentPrompt(input);
+    setPrevPrompt((prev) => [...prev, input]);
     const response = await run(input);
     // start-  when there is a star make it bold
     let responseArray = response.split("*");
@@ -29,12 +35,17 @@ const ContextProvider = ({ children }) => {
         newResponse += "<b>" + responseArray[i] + "</b>";
       }
     }
+    // end when there is a star make it bold
 
     // after removing star if single star available then replace it with new line
     let newResponse2 = newResponse.split("*").join("</br>");
+    // setResultData(newResponse2);
+    let newResponseArray = newResponse2.split(" ");
+    for (let i = 0; i < newResponseArray.length; i++) {
+      const nextWord = newResponseArray[i];
+      delayPara(i, nextWord + " ");
+    }
 
-    // end when there is a star make it bold
-    setResultData(newResponse2);
     setLoading(false);
     setInput("");
   };
