@@ -119,8 +119,10 @@
     font-weight: 300;
 }
 
+.result{
+    padding: 0 20px;
+}
 
-/*
-
-
-*/
+.result img{
+    width: 35px;
+}
